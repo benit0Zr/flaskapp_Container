@@ -1,0 +1,60 @@
+version: '3'
+services:
+  bdd_postgres:
+    image: "postgres:9.6.5"
+    volumes:
+      - "bdd_dbdata:/var/lib/postgresql/data"
+    env_file:
+      - env_file
+    networks:
+      - database_network
+  bdd_redis:
+    image: "redis:alpine"
+    networks:
+      - database_network
+  bdd_mongo:
+    image: "mongo"
+    networks:
+      - database_network
+  bdd_pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-root@test.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-toor}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-5151}:80"
+    networks:
+      - database_network
+    restart: unless-stopped
+  bdd_flaskapp:
+    build: .
+    env_file:
+      - env_file
+    volumes:
+      - .:/opt/services/flaskapp/src
+    networks:
+      - database_network
+      - frontend_network
+    depends_on:
+      - bdd_postgres
+  bdd_nginx:
+    image: "nginx:1.13.5"
+    ports:
+      - "8181:80"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./htdocs:/htdocs
+    networks:
+      - frontend_network
+    depends_on:
+      - bdd_flaskapp
+networks:
+  database_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge
+volumes:
+  bdd_dbdata:
+  pgadmin:

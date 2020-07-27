@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+{% block head %}
+    <title>Registrarse en el sistema</title>
+{% endblock %}
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-5">
+            {% for field, errors in form.errors.items()%}
+                <div class="alert alert-danger" role="alert">
+                    {{form[field].label}}:{{','.join(errors)}}
+                </div>
+            {%endfor%}
+            <h4>Formulario de registro</h4>
+            <form class="form" action="{{url_for('signup')}}" method="POST">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{form.name.label}}
+                    {{form.name(class="form-control")}}                  
+
+                </div>
+
+                <div class="form-group">
+                    {{form.apellidos.label}}
+                    {{form.apellidos(class="form-control")}}                  
+
+                </div>
+
+                <div class="form-group">
+                    {{form.biografia.label}}
+                    {{form.biografia(class="form-control")}}                  
+
+                </div>
+
+                <div class="form-group">
+                    {{form.email.label}}
+                    {{form.email(class="form-control")}}                  
+
+                </div>
+
+                <div class="form-group">
+                    {{form.telefono.label}}
+                    {{form.telefono(class="form-control")}}                  
+
+                </div>
+
+                <div class="form-group">
+                    {{form.password.label}}
+                    {{form.password(class="form-control")}}                  
+
+                </div>
+
+                
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+        
+
+    </div>
+    
+{% endblock %}

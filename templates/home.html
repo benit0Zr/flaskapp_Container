@@ -1,0 +1,60 @@
+{% extends "main.html" %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+{% block body %}
+    <div class="row mt-5 justify-content-center">
+        <div class="container col-lg">
+
+            {% for field, errors in form.errors.items()%}
+                <div class="alert alert-danger" role="alert">
+                    {{form[field].label}}:{{','.join(errors)}}
+                </div>
+            {%endfor%}
+            <div class="row">                
+                <div class="col">
+                    <form action="{{url_for('timeline')}}" method="POST">
+                        {{ form.csrf_token }}
+                    
+                        <div class="form-group">
+                            
+                            {{form.estado.label}}
+                            {{form.estado(class="form-control", placeholder="¿Que piensas?" )}}
+                            
+                        </div>
+                        <button class="btn btn-primary" type="submit">Publicar</button>
+
+                    </form>
+                    <hr>
+                    <!--mostrar publicaciones-->
+                    {% for post in posts %}
+                        <div class="card mt-4" style="width:100%;">
+                            <div class="card-body">    
+                                                   
+                                <h5 class="card-title">{{post.user.name}}</h5>                               
+                                <p class="card-text">{{post.estado}}</p>                           
+                            </div>
+                        </div>
+
+                    {%endfor%}
+                  
+                </div>        
+                    
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{user.name}}!</h5>
+                            <p class="card-title">{{user.biografia}}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">{{user.email}}</h6>
+                            <p class="card-text">{{user.telefono}}</p>
+                            <a href="{{url_for('logout')}}" class="card-link">Logout</a>
+                            
+                        </div>
+                    </div>   
+
+                </div>                            
+           
+        </div>
+    </div>
+{% endblock %}
