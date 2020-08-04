@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block head %}
     <title>Login</title>
+    <link rel="stylesheet" href="/css/sign-in.css">
 {% endblock %}
 {% block body %}
     <div class="row justify-content-center">
@@ -19,27 +20,35 @@
                     {% endfor%}
                 {% endif %}
             {% endwith %}
-            <h4 class="text-center">Iniciar sesion</h4>
+           
 
-            <form class="" action="{{url_for('login')}}" method="POST">
-                {{ form.csrf_token }}             
+            <form class="form-signin mt-6" action="{{url_for('login')}}" method="POST">
+                {{ form.csrf_token }}   
+                <center class="mt-6">
+                    <img src="/img/umb.jpg" alt="" width="50%" height="50%">
+                   
+
+
+                </center> <br>              
+
+                
 
                 <div class="form-group">
-                    {{form.email.label}}
-                    {{form.email(class="form-control")}}                  
+                    
+                    {{form.username(class="form-control" , placeholder="Username")}}                  
 
                 </div>
 
                 
 
                 <div class="form-group ">
-                    {{form.password.label}}
-                    {{form.password(class="form-control")}}                  
+                   
+                    {{form.password(class="form-control", placeholder="Password")}}                  
 
                 </div>
                 
                 <div class="row">
-                    <div class="col-10"> </div>
+                    <div class="col-8"> </div>
                     
                     <div class="col-2">
                         <a href="{{url_for('signup')}}">Registrarme</a>  
@@ -47,8 +56,11 @@
 
                 </div>                 
 
-               
-                <button type="submit" class="btn btn-primary">Login</button>
+                <center>
+                    <button type="submit" class="btn btn-primary">Login</button>
+
+                </center>
+                
   
 
             </form>

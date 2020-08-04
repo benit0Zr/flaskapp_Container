@@ -25,29 +25,29 @@ app.config['SESSION_REDIS'] = redis
 
 Session(app)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def timeline():
 
     user = session.get('profile')
     if not user:
         return redirect(url_for('login'))
 
-    form = EstadoForm()
-    if form.validate_on_submit():
-        post = {
-            'estado': form.estado.data,
-            'user_id': user['_id']            
-        }
+    # form = EstadoForm()
+    # if form.validate_on_submit():
+    #     post = {
+    #         'estado': form.estado.data,
+    #         'user_id': user['_id']            
+    #     }
 
-        mongodb.posts.insert_one(post)
-        return redirect(url_for('timeline'))
+    #     mongodb.posts.insert_one(post)
+    #     return redirect(url_for('timeline'))
 
 
-    posts = list(mongodb.posts.find())
-    for post in posts:        
-        post['user']= mongodb.users.find_one({'_id' : post['user_id']})
+    # posts = list(mongodb.posts.find())
+    # for post in posts:        
+    #     post['user']= mongodb.users.find_one({'_id' : post['user_id']})
    
-    return render_template("home.html", form=form, user=user, posts=posts)
+    return render_template("home.html", user=user)
     #return str(user)
    
 
@@ -56,13 +56,14 @@ def signup():
     form= SignupForm()
     if form.validate_on_submit():
         user = {
-            'name': form.name.data,
+            'nombre': form.nombre.data,
             'apellidos': form.apellidos.data,
-            'biografia': form.biografia.data,
+            'sexo': form.sexo.data,
             'email': form.email.data,
-            'telefono': form.telefono.data,
+            'username': form.username.data,
             'password': form.password.data
         }
+        
         mongodb.users.insert_one(user)
         #return str(user)
         #redireccionar url
@@ -77,7 +78,7 @@ def login():
     form= LoginForm()
     if form.validate_on_submit():
         user = mongodb.users.find_one({
-            'email':form.email.data,
+            'username':form.username.data,
             'password':form.password.data
 
 
@@ -97,6 +98,42 @@ def login():
 def logout():
     session['profile'] = None
     return redirect(url_for('timeline'))
+
+
+
+
+@app.route("/alumnos", methods=["GET", "POST"])
+def addAlumnos():
+
+    user = session.get('profile')
+    if not user:
+        return redirect(url_for('login'))
+
+    form= AlumForm()
+
+    if form.validate_on_submit():
+
+        alumnos = {
+
+            'matricula': form.matricula.data,
+            'nombre': form.nombre.data,
+            'apellidos': form.apellidos.data,
+            'genero': form.genero.data,
+            'carrera': form.carrera.data,
+            'generacion': form.generacion.data,
+            'status': form.status.data,
+            'domicilio': form.domicilio.data,
+            'telefono': form.tel.data,
+            'correo': form.correo.data,
+        }
+        
+        mongodb.alumnos.insert_one(alumnos)
+         #return str(user)
+         #redireccionar url
+        return redirect(url_for("alumnos"))
+        
+        
+    return render_template("alumnos.html", form=form, user=user)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5090, debug=True)
