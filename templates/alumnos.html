@@ -1,0 +1,120 @@
+{% extends "main.html" %}
+
+{% block head %}
+    <title>Alumnos</title>
+    <link rel="stylesheet" href="/css/alum.css">
+{% endblock %}
+{% block body %}
+    <div class="row mt-5 justify-content-center">
+        <div class="container col-lg">     
+            <!-- navbar -->
+            <nav class="navbar navbar-toggleable-md navbar-dark bg-dark">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.username}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>                    
+                        </div>
+                    </li>
+                </ul>                                 
+                    
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('timeline')}}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('addAlumnos')}}">Alumnos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Administradores</a>
+                        </li>
+                  </ul>
+                  
+                </div>
+            </nav>
+
+            <br> <br>
+
+            {% for field, errors in form.errors.items()%}
+                <div class="alert alert-danger" id="alerts" role="alert">
+                    {{form[field].label}}:{{','.join(errors)}}
+                </div>
+            {%endfor%}
+
+            <form class="" action="{{url_for('addAlumnos')}}" method="POST">
+                <center>
+                    <h4 class="mt-6"><strong>Formulario de registro de Alumnos!</strong></h4>
+                </center>
+
+                <div class="row" id="form-alum">
+
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Matricula:</label>
+                        {{form.matricula(class="form-control" , placeholder="Matricula")}}
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Nombre:</label>
+                        {{form.nombre(class="form-control" , placeholder="Nombre")}}
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Apellidos:</label>
+                        {{form.apellidos(class="form-control" , placeholder="Apellidos")}}
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Genero:</label>
+                        {{form.genero(class="form-control" , placeholder="Genero")}}
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Carrera:</label>
+                        {{form.carrera(class="form-control" , placeholder="carrera")}}
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Generación:</label>
+                        {{form.generacion(class="form-control" , placeholder="Generacion: example 2015-2020 ")}}
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Estatus:</label>
+                        {{form.estatus(class="form-control" , placeholder="Status")}}
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Domicilio:</label>
+                        {{form.domicilio(class="form-control" , placeholder="Domicilio")}}
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Telefono:</label>
+                        {{form.tel(class="form-control" , placeholder="Telefono")}}
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Correo:</label>
+                        {{form.correo(class="form-control" , placeholder="Correo")}}
+                    </div>
+                    <div class="col-6  mt-3"></div>
+                    
+                </div>
+                <center class="mt-2">
+                    <button class="btn btn-primary">Registrar</button>
+
+                </center>
+                
+              </form>
+
+            
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+    
+{% endblock %}
