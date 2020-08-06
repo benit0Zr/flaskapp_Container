@@ -5,12 +5,18 @@
 {% block body %}
     <div class="row justify-content-center">
         <div class="col-md-6 mt-5">
+
+            <!-- Mensajes en pantalla -->
+
             {% for field, errors in form.errors.items()%}
                 <div class="alert alert-danger" role="alert">
                     {{form[field].label}}:{{','.join(errors)}}
                 </div>
             {%endfor%}
             <h4>Formulario de registro</h4>
+
+            <!-- formulario -->
+            
             <form class="form" action="{{url_for('signup')}}" method="POST">
                 {{ form.csrf_token }}
                 <div class="form-group">
