@@ -27,6 +27,8 @@ app.config['SESSION_REDIS'] = redis
 
 Session(app)
 
+
+# ruta home
 @app.route("/")
 def timeline():
 
@@ -36,7 +38,7 @@ def timeline():
     return render_template("home.html", user=user)
     
    
-
+# ruta para el registro de usuarios
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     form= SignupForm()
@@ -55,7 +57,7 @@ def signup():
         
     return render_template("signup.html", form=form)
 
-
+# ruta login
 @app.route("/login",methods=["GET", "POST"])
 def login():
     form= LoginForm()
@@ -74,13 +76,14 @@ def login():
         
     return render_template("login.html", form=form)
 
+# ruta logout
 @app.route("/logout")
 def logout():
     session['profile'] = None
     return redirect(url_for('timeline'))
 
 
-
+# ruta para el registro de alumnos
 @app.route("/alumnos", methods=["GET", "POST"])
 def addAlumnos():
 
@@ -108,21 +111,55 @@ def addAlumnos():
         mongodb.alumnos.insert_one(alumnos)        
         return redirect(url_for("addAlumnos"))
            
+    return render_template("alumnos.html", form=form, user=user)
     # consulta
+    
+
+
+# ruta de consulta de alumnos
+@app.route("/alumnos/consulta")
+def consulta_Alum():
+    
+    user = session.get('profile')
+    if not user:
+        return redirect(url_for('login'))
+
     query = list(mongodb.alumnos.find())
     for q in query:        
-        q = mongodb.alumnos.find_one()     
+        q = mongodb.alumnos.find_one()       
        
         
-    return render_template("alumnos.html", form=form, user=user, query=query)
+    return render_template("consulta_Alumnos.html", user=user, query=query)
+    
+
+# ruta para eliminar alumnos
+@app.route('/consulta/delete')
+@app.route('/consulta/delete/<matricula>/', methods=['GET'])
+def delete_Alumno(matricula):
+    delete = mongodb.alumnos
+    user = delete.find_one({'matricula':matricula})
+    delete.remove(user)
+    return redirect(url_for('consulta_Alum'))
 
 
-@app.route('/delete')
-def delete_Alumno():
+
+@app.route('/admin')
+def admin():
+
+    user = session.get('profile')
+    if not user:
+        return redirect(url_for('login'))
+
+    users = list(mongodb.users.find())
+    for u in users:        
+        u = mongodb.users.find_one()     
+       
+        
+    return render_template("admin.html", user=user, users=users)
     
 
   
-    return redirect(url_for("addAlumnos"))
+    return redirect(url_for("admin"))
 
 
    

@@ -3,9 +3,7 @@
 {% block head %}
     <title>Alumnos</title>
     <link rel="stylesheet" href="/css/alum.css">
-    <liknk rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-
+    
     
     
 
@@ -39,7 +37,10 @@
                             <a class="nav-link" href="{{url_for('addAlumnos')}}">Alumnos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Administradores</a>
+                            <a class="nav-link" href="{{url_for('admin')}}">Administradores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('consulta_Alum')}}">Consulta</a>
                         </li>
                   </ul>
                   
@@ -115,73 +116,7 @@
                 
               </form>
                            
-            <!-- Mostrar los datos mediante una tabla -->
-            <div class="table-responsive-sm" id="data-table">
-                <table id="example" class="table ">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Id</th>
-                            <th>Matricula</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Genero</th>
-                            <th>Carrera</th>
-                            <th>Generación</th>
-                            <th>Estatus</th>
-                            <th>Domicilio</th>
-                            <th>Telefono</th>
-                            <th>Correo</th>  
-                            <th>Actualizar</th>               
-                            <th>Eliminar</th>
-    
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-    
-                        <!-- ciclo para obtener cada registro-->
-    
-                        {% for q in query %}
-                        <tr>
-                            <td>{{q._id}}</td>
-                            <td>{{q.matricula}}</td>
-                            <td>{{q.nombre}}</td>
-                            <td>{{q.apellidos}}</td>
-                            <td>{{q.genero}}</td>
-                            <td>{{q.carrera}}</td>
-                            <td>{{q.generacion}}</td>
-                            <td>{{q.status}}</td>
-                            <td>{{q.domicilio}}</td>
-                            <td>{{q.telefono}}</td>
-                            <td>{{q.correo}}</td>
-                            <td><button  class="btn btn-primary" id="btn-upd">Actualizar</button></td>
-                            <td><a href="{{url_for('delete_Alumno')}}">Eliminar</a></td>
-
-    
-                        </tr>
-                        {%endfor%}
-                    
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Matricula</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Genero</th>
-                            <th>Carrera</th>
-                            <th>Generación</th>
-                            <th>Estatus</th>
-                            <th>Domicilio</th>
-                            <th>Telefono</th>
-                            <th>Correo</th> 
-                            <th>Actualizar</th>               
-                            <th>Eliminar</th>
-                           
-                        </tr>
-                    </tfoot>
-                </table>
-
-            </div>
+            
             
                 
             
@@ -192,18 +127,7 @@
 
     
 
-    <!-- Script para inicializar la tabla -->
-    <script>
-
-        $(document).ready(function() {
-            $('#example').dataTable( {
-                "language": {
-                    "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
-                }
-            } );
-        } );
-    </script>
-
+   
     
     
 {% endblock %}
