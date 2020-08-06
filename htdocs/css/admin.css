@@ -1,0 +1,30 @@
+
+#alerts{
+    margin: auto;
+    width: 50%;
+    padding: 5px;
+
+
+}
+
+#form-alum{
+    margin: auto;
+    width: 50%;
+    height: 60%;
+    
+    border-radius: 2%;
+
+    
+}
+
+#data-table{
+    margin: auto;
+    font-size: 10px;
+    width: 80%;
+    
+}
+#btn-upd,#btn-del{
+    width:60px;
+    font-size:10px;
+
+}
