@@ -41,6 +41,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('admin')}}">Administradores</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('admin')}}">consulta</a>
+                        </li>
                   </ul>
                   
                 </div>
@@ -81,8 +84,8 @@
                             <td>{{u.sexo}}</td>                            
                             <td>{{u.email}}</td>
                             <td>{{u.username}}</td>
-                            <td><a href="">Actualizar</a></td>
-                            <td><a href="">Eliminar</a>    
+                            <td><a href="/admin/actualizar/{{u.username}}">Actualizar</a></td>
+                            <td><a href="/admin/delete/{{u.username}}">Eliminar</a>    
                             
                         </tr>
                         {%endfor%}

@@ -17,12 +17,21 @@
     
 }
 
-#data-table{
-    margin: auto;
-    font-size: 10px;
-    width: 80%;
+#data{   
+    
+    font-size: 10px;   
     
 }
+
+table {
+    width: 100%;
+   
+ }
+
+ th, td {
+    width: 25%;
+    text-align: center;
+ }
 #btn-upd,#btn-del{
     width:60px;
     font-size:10px;

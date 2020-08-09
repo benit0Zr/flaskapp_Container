@@ -1,16 +1,12 @@
 {% extends "main.html" %}
-
 {% block head %}
-    <title>Alumnos</title>
+    <title>Actualizar datos</title>
     <link rel="stylesheet" href="/css/alum.css">
-    
-    
-    
-
 {% endblock %}
 {% block body %}
     <div class="row mt-5 justify-content-center">
-        <div class="container col-lg">     
+        <div class="container col-lg">
+
             <!-- navbar -->
             <nav class="navbar navbar-toggleable-md navbar-dark bg-dark">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,10 +31,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('addAlumnos')}}">Alumnos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for('consulta_Alum')}}">Consulta</a>
-                        </li>
+                        </li>                       
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('admin')}}">Administradores</a>
                         </li>
@@ -49,85 +43,54 @@
 
             <br> <br>
 
-            <!-- alertas -->
+            <!-- Mensajes en pantalla -->
 
             {% for field, errors in form.errors.items()%}
-                <div class="alert alert-danger" id="alerts" role="alert">
+                <div class="alert alert-danger" role="alert">
                     {{form[field].label}}:{{','.join(errors)}}
                 </div>
             {%endfor%}
 
-            <!-- formulario -->
+            
 
-            <form class="" action="{{url_for('addAlumnos')}}" method="POST">
-                {{ form.csrf_token }}
+            <!-- formulario -->
+            
+            <form class="" action="{{url_for('up_admin')}}" method="POST">
                 <center>
-                    <h4 class="mt-6"><strong>Registro de Alumnos!</strong></h4>
+                    <h4 class="mt-6"><strong>Actualizar datos!</strong></h4>
                 </center>
 
                 <div class="row" id="form-alum">
-                    <div class="col-6 mt-3">
-                        <label for="formGroupExampleInput">Matricula:</label>
-                        {{form.matricula(class="form-control" , placeholder="Matricula")}}
+                    <div class="col-12 mt-3">                        
+                        <input type="hidden" value='{{admin.username}}' name="username" readonly>
                     </div>
-                    <div class="col-6 mt-3">
+                    <div class=" col-6 mt-3">
                         <label for="formGroupExampleInput">Nombre:</label>
-                        {{form.nombre(class="form-control" , placeholder="Nombre")}}
+                        <input type="text" value='{{admin.nombre}}' name="nombre">
                     </div>
                     <div class="col-6 mt-3">
                         <label for="formGroupExampleInput">Apellidos:</label>
-                        {{form.apellidos(class="form-control" , placeholder="Apellidos")}}
+                        <input type="text" value='{{admin.apellidos}}' name="apellidos">
                     </div>
                     <div class="col-6 mt-3">
                         <label for="formGroupExampleInput">Genero:</label>
-                        {{form.genero(class="custom-select")}}
-                    </div>
-                    <div class="col-6 mt-3">
-                        <label for="formGroupExampleInput">Carrera:</label>
-                        {{form.carrera(class="custom-select" )}}
-                    </div>
-                    <div class="col-6  mt-3">
-                        <label for="formGroupExampleInput">Generación:</label>
-                        {{form.generacion(class="custom-select" )}}
-                    </div>
-                    <div class="col-6  mt-3">
-                        <label for="formGroupExampleInput">Estatus:</label>
-                        {{form.estatus(class="custom-select" )}}
-                    </div>
-                    <div class="col-6  mt-3">
-                        <label for="formGroupExampleInput">Domicilio:</label>
-                        {{form.domicilio(class="form-control" , placeholder="Domicilio")}}
-                    </div>
-                    <div class="col-6  mt-3">
-                        <label for="formGroupExampleInput">Telefono:</label>
-                        {{form.tel(class="form-control" , placeholder="Telefono")}}
-                    </div>
+                        <input type="text" value='{{admin.sexo}}' name="sexo">
+                    </div>                    
                     <div class="col-6  mt-3">
                         <label for="formGroupExampleInput">Correo:</label>
-                        {{form.correo(class="form-control" , placeholder="Correo")}}
+                        <input type="text" value='{{admin.email}}' name="email">
                     </div>
                     <div class="col-6  mt-3"></div>
                     
                 </div>
                 <center class="mt-2">
-                    <button class="btn btn-primary">Registrar</button>
+                    <button class="btn btn-primary">Actualizar</button>
 
                 </center>
-                
-              </form>
-                           
-            
-            
-                
-            
-
+            </form>
         </div>
+        
 
     </div>
-
-    
-
-   
-    
     
 {% endblock %}
