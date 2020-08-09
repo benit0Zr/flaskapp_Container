@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block head %}
+    <title>Actualizar Alumno</title>
+    <link rel="stylesheet" href="/css/alum.css">
+
+{% endblock %}
+{% block body %}
+
+<form action="{url_for('update_Alumno')}}" method="GET">
+    <input type="text" value={{user.nombre}}>
+    <input type="text" value="{{user.apellidos}}">
+</form>
+    
+{% endblock %}

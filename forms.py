@@ -36,3 +36,16 @@ class AlumForm(FlaskForm):
 
 # class EstadoForm(FlaskForm):
 #     estado = TextAreaField('Publicar algo', validators=[DataRequired(),Length(min=10, max=120, message=" Dato incorrecto")])
+
+class upForm(FlaskForm):
+    matricula = StringField('Matricula', validators=[DataRequired(),Length(min=3, max=50, message="Dato incorrecto")])
+    nombre = StringField('Nombre', validators=[DataRequired(),Length(min=5, max=20, message=" Nombre incorrecto")])
+    apellidos = StringField('apellidos', validators=[DataRequired(),Length(min=5, max=20, message=" Apellido incorrecto")])
+    genero = SelectField('Genero', choices = [('H','Hombre'), ('M','Mujer')])
+    carrera = SelectField('Carrera', choices = [('ISC','Sistemas'), ('IAS','Agronomia'),('LC','Contaduria')])
+    generacion = SelectField('Generacion', choices = [('2008-2012','2008-2012'), ('2012-2016','2012-2016'),('2016-2020','2016-2020')])
+    estatus = SelectField('Status', choices = [('Titulado','Titulado'), ('No titulado','No titulado')])
+    domicilio = StringField('Domicilio', validators=[DataRequired(),Length(min=10, max=100, message="Dato incorrecto")])
+    tel = StringField('Telefono', validators=[DataRequired(),Length(min=10, message=" Dato incorrecto")])
+    correo = StringField('Correo', validators=[DataRequired(),Length(min=5, max=20, message=" Dato incorrecto")])
+    

@@ -1,0 +1,126 @@
+{% extends "main.html" %}
+
+{% block head %}
+    <title>Actualizar Alumno</title>
+    <link rel="stylesheet" href="/css/alum.css">
+    
+    
+    
+
+
+{% endblock %}
+{% block body %}
+    <div class="row mt-5 justify-content-center">
+        <div class="container col-lg">     
+            <!-- navbar -->
+            <nav class="navbar navbar-toggleable-md navbar-dark bg-dark">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.username}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>                    
+                        </div>
+                    </li>
+                </ul>                                 
+                    
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('timeline')}}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('addAlumnos')}}">Alumnos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('admin')}}">Administradores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('consulta_Alum')}}">Consulta</a>
+                        </li>
+                  </ul>
+                  
+                </div>
+            </nav>
+
+            <br> <br>
+
+            <!-- formulario -->
+
+            <form class="" action="{{url_for('updateAlumnos')}}" method="POST">
+              
+                <center>
+                    <h4 class="mt-6"><strong>Actualizacion de Alumnos!</strong></h4>
+                </center>
+
+                <div class="row" id="form-alum">
+                    <div class="col-12 mt-3">
+                        <label for="formGroupExampleInput">Matricula:</label>
+                        <input type="text" value='{{alumno.matricula}}'>
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Nombre:</label>
+                        <input type="text" value='{{alumno.nombre}}'>
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Apellidos:</label>
+                        <input type="text" value='{{alumno.apellidos}}'>
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Genero:</label>
+                        <input type="text" value='{{alumno.genero}}'>
+                    </div>
+                    <div class="col-6 mt-3">
+                        <label for="formGroupExampleInput">Carrera:</label>
+                        <input type="text" value='{{alumno.carrera}}'>
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Generación:</label>
+                        <input type="text" value='{{alumno.generacion}}'>
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Estatus:</label>
+                        <input type="text" value='{{alumno.status}}'>
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Domicilio:</label>
+                        <input type="text" value='{{alumno.domicilio}}'>
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Telefono:</label>
+                        <input type="text" value='{{alumno.telefono}}'>
+                    </div>
+                    <div class="col-6  mt-3">
+                        <label for="formGroupExampleInput">Correo:</label>
+                        <input type="text" value='{{alumno.correo}}'>
+                    </div>
+                    <div class="col-6  mt-3"></div>
+                    
+                </div>
+                <center class="mt-2">
+                    <button class="btn btn-primary">Actualizar</button>
+
+                </center>
+                
+            </form>
+                           
+            
+            
+                
+            
+
+        </div>
+
+    </div>
+
+    
+
+   
+    
+    
+{% endblock %}

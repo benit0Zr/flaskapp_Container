@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/css/alum.css">
     <liknk rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-
+    
     
     
 
@@ -76,43 +76,29 @@
                         </tr>
                     </thead>
                     <tbody>
+
     
                         <!-- ciclo para obtener cada registro-->
     
                         {% for q in query %}
-                        <tr>
-                           
-                            <td>{{q.matricula}}</td>
-                            <td>{{q.nombre}}</td>
-                            <td>{{q.apellidos}}</td>
-                            <td>{{q.genero}}</td>
-                            <td>{{q.carrera}}</td>
-                            <td>{{q.generacion}}</td>
-                            <td>{{q.status}}</td>
-                            <td>{{q.domicilio}}</td>
-                            <td>{{q.telefono}}</td>
-                            <td>{{q.correo}}</td>
-                            <td><a href="">Actualizar</a></td>
-                            <td><a href="/consulta/delete/{{q.matricula}}">Eliminar</a></td>
+                            <tr>
+                            
+                                <td>{{q.matricula}}</td>
+                                <td>{{q.nombre}}</td>
+                                <td>{{q.apellidos}}</td>
+                                <td>{{q.genero}}</td>
+                                <td>{{q.carrera}}</td>
+                                <td>{{q.generacion}}</td>
+                                <td>{{q.status}}</td>
+                                <td>{{q.domicilio}}</td>
+                                <td>{{q.telefono}}</td>
+                                <td>{{q.correo}}</td>
+                                <td><a href="/consulta/actualizar/{{q.matricula}}"}">Actualizar</a></td>
+                                <td><a href="/consulta/delete/{{q.matricula}}">Eliminar</a></td>
 
-    
-                        </tr>
+        
+                            </tr>
                         {%endfor%}
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     </tbody>
                     <tfoot>
                         <tr>
@@ -155,6 +141,8 @@
             } );
         } );
     </script>
+
+    
 
     
     

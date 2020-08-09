@@ -36,8 +36,8 @@ def timeline():
     if not user:
         return redirect(url_for('login'))   
     return render_template("home.html", user=user)
-    
-   
+
+
 # ruta para el registro de usuarios
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -56,6 +56,7 @@ def signup():
         return redirect(url_for("login"))        
         
     return render_template("signup.html", form=form)
+
 
 # ruta login
 @app.route("/login",methods=["GET", "POST"])
@@ -76,11 +77,13 @@ def login():
         
     return render_template("login.html", form=form)
 
+
+
 # ruta logout
 @app.route("/logout")
 def logout():
     session['profile'] = None
-    return redirect(url_for('timeline'))
+    return redirect(url_for('timeline')) 
 
 
 # ruta para el registro de alumnos
@@ -109,12 +112,10 @@ def addAlumnos():
         }
         
         mongodb.alumnos.insert_one(alumnos)        
-        return redirect(url_for("addAlumnos"))
+        return redirect(url_for("consulta_Alum"))
            
     return render_template("alumnos.html", form=form, user=user)
     # consulta
-    
-
 
 # ruta de consulta de alumnos
 @app.route("/alumnos/consulta")
@@ -126,11 +127,10 @@ def consulta_Alum():
 
     query = list(mongodb.alumnos.find())
     for q in query:        
-        q = mongodb.alumnos.find_one()       
-       
+        q = mongodb.alumnos.find_one()        
         
-    return render_template("consulta_Alumnos.html", user=user, query=query)
-    
+    return render_template("consulta_Alumnos.html", user=user, query=query) 
+
 
 # ruta para eliminar alumnos
 @app.route('/consulta/delete')
@@ -143,6 +143,50 @@ def delete_Alumno(matricula):
 
 
 
+#ruta para actualizar alumnos
+@app.route('/consulta/actualizar')
+@app.route('/consulta/actualizar/<matricula>/', methods=["GET"])
+def update_Alumno(matricula):
+
+    user = session.get('profile')
+    if not user:
+        return redirect(url_for('login'))
+
+    form = upForm()
+    
+    alumno = mongodb.alumnos.find_one({'matricula' : matricula})
+    
+    #return str(alumno)
+    return render_template('alumnos_update.html', alumno=alumno, user=user, form=form)
+    #return render_template("alumnos_update.html", form=form, user=user)
+
+
+@app.route("/update", methods=["GET", "POST"])
+def updateAlumnos():    
+
+    form = upForm()
+    
+    if form.validate_on_submit():
+        alumnos = {
+
+            'matricula': form.matricula.data,
+            'nombre': form.nombre.data,
+            'apellidos': form.apellidos.data,
+            'genero': form.genero.data,
+            'carrera': form.carrera.data,
+            'generacion': form.generacion.data,
+            'status': form.estatus.data,
+            'domicilio': form.domicilio.data,
+            'telefono': form.tel.data,
+            'correo': form.correo.data,
+        }
+        
+        mongodb.alumnos.insert(alumnos)        
+        return redirect(url_for("updateAlumnos", form=form))
+           
+    return render_template("alumnos_update.html")
+
+
 @app.route('/admin')
 def admin():
 
@@ -152,12 +196,9 @@ def admin():
 
     users = list(mongodb.users.find())
     for u in users:        
-        u = mongodb.users.find_one()     
-       
+        u = mongodb.users.find_one()            
         
-    return render_template("admin.html", user=user, users=users)
-    
-
+    return render_template("admin.html", user=user, users=users)  
   
     return redirect(url_for("admin"))
 
